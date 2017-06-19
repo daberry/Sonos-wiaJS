@@ -1,4 +1,4 @@
-# Project Name #
+# Sonos-wiaJS #
 
 <!--
 > This material was originally posted [here](http://www.quora.com/What-is-Amazons-approach-to-product-development-and-product-management). It is reproduced here for posterities sake.
@@ -16,29 +16,30 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
 Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
  -->
 
-## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+## Creating an epic end-user experience out of a currently frustrating moment ##
+  > Sonos wiaJS streamlines the process of troubleshooting an end customer's Sonos system communication problems by providing realtime visualization of the system's communication.
 
-## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+## Lightweight, short, and to the point ##
+  > Sonos wiaJS provides a faster, more interactive solution for Sonos Customer Care to a very common source of customer contact: unstable wireless communication in the system.  By watching, and interpreting realtime visuals with the end user, they are more engaged in the troubleshooting process, as opposed to being put on hold while the CC agent reviews diagnostics.
+  > Sonos wiaJS also improves on a previous Java prototype by requiring minimal dependencies with no installation on the end user's end.  The only requirement for the end user is a relatively modern web browser, we do the rest.
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  > Sonos wiaJS improves time to resolution for one of the most common calls to Sonos Customer Care: wireless communication problems.  Visuals are powered by extremely lightweight JavaScript, with minimal dependencies for fast page loading.  The only requirement is that the end user be using a browser which conforms to the JavaScript ES5 standard.
 
 ## Problem ##
-  > Describe the problem your product solves.
+  > Sonos wiaJS improves time to resolution for one of the most common calls to Sonos Customer Care: wireless communication problems.  This is a much better experience than the current method of submitting diagnostics, and being put on hold while the agent reviews the diagnostics.
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  > Minimial JavaScript library dependencies (D3.JS for visuals, AngularJS for the front end) allow for extremely minimal setup time once connected to the end user's machine.  Principles of modern responsive design allow for a mobile friendly front end to be rapidly created via recycling of AngularJS components should the need arise.
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  > This tool has pushed Sonos' already world class Customer Care one more step above the competition, engaging our end user in new ways while demystifying a major driver of contact volumes.
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  > Navigate to the heroku deployed page, input the IP address of the associated ZP if in SonosNET mode, or any ZP if in wireless mode.
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  > Sonos wiaJS IS AWESOME!  I was having all kinds of audio cutouts while trying to play Spotify in my house in New York City, so I called Sonos Customer Care.  Within 10 minutes of being connected to an agent, my system was running so smoothly I could swear it purrs now!  On top of that, the agent showed me how to use Sonos wiaJS to troubleshoot if the problem returns.  Sonos Customer Care is amazing!
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  > What are you waiting for?? Deploy the server and start wowing end users already!
