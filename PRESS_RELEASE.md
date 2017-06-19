@@ -20,17 +20,23 @@ Once the project moves into development, the press release can be used as a touc
   > Sonos wiaJS streamlines the process of troubleshooting an end customer's Sonos system communication problems by providing realtime visualization of the system's communication.
 
 ## Lightweight, short, and to the point ##
-  > Sonos wiaJS provides a faster, more interactive solution for Sonos Customer Care to a very common source of customer contact: unstable wireless communication in the system.  By watching, and interpreting realtime visuals with the end user, they are more engaged in the troubleshooting process, as opposed to being put on hold while the CC agent reviews diagnostics.
-  > Sonos wiaJS also improves on a previous Java prototype by requiring minimal dependencies with no installation on the end user's end.  The only requirement for the end user is a relatively modern web browser, we do the rest.
+  > Sonos wiaJS provides a faster, more interactive solution for Sonos Customer Care to a very common source of customer contact: unstable wireless communication in the system.
+  > By watching, and interpreting realtime visuals with the end user, they are more engaged in the troubleshooting process, as opposed to being put on hold while the CC agent reviews diagnostics.
+  > Sonos wiaJS also improves on a previous Java prototype by requiring minimal dependencies with no installation on the end user's end.
+  > The only requirement for the end user is a relatively modern web browser, we do the rest.
 
 ## Summary ##
-  > Sonos wiaJS improves time to resolution for one of the most common calls to Sonos Customer Care: wireless communication problems.  Visuals are powered by extremely lightweight JavaScript, with minimal dependencies for fast page loading.  The only requirement is that the end user be using a browser which conforms to the JavaScript ES5 standard.
+  > Sonos wiaJS improves time to resolution for one of the most common calls to Sonos Customer Care: wireless communication problems.
+  > Visuals are powered by extremely lightweight JavaScript, with minimal dependencies for fast page loading.
+  > The only requirement is that the end user be using a browser which conforms to the JavaScript ES5 standard.
 
 ## Problem ##
-  > Sonos wiaJS improves time to resolution for one of the most common calls to Sonos Customer Care: wireless communication problems.  This is a much better experience than the current method of submitting diagnostics, and being put on hold while the agent reviews the diagnostics.
+  > Sonos wiaJS improves time to resolution for one of the most common calls to Sonos Customer Care: wireless communication problems.
+  > This is a much better experience than the current method of submitting diagnostics, and being put on hold while the agent reviews the diagnostics.
 
 ## Solution ##
-  > Minimial JavaScript library dependencies (D3.JS for visuals, AngularJS for the front end) allow for extremely minimal setup time once connected to the end user's machine.  Principles of modern responsive design allow for a mobile friendly front end to be rapidly created via recycling of AngularJS components should the need arise.
+  > Minimial JavaScript library dependencies (D3.JS for visuals, AngularJS for the front end) allow for extremely minimal setup time once connected to the end user's machine.
+  > Principles of modern responsive design allow for a mobile friendly front end to be rapidly created via recycling of AngularJS components should the need arise.
 
 ## Quote from You ##
   > This tool has pushed Sonos' already world class Customer Care one more step above the competition, engaging our end user in new ways while demystifying a major driver of contact volumes.
@@ -39,7 +45,9 @@ Once the project moves into development, the press release can be used as a touc
   > Navigate to the heroku deployed page, input the IP address of the associated ZP if in SonosNET mode, or any ZP if in wireless mode.
 
 ## Customer Quote ##
-  > Sonos wiaJS IS AWESOME!  I was having all kinds of audio cutouts while trying to play Spotify in my house in New York City, so I called Sonos Customer Care.  Within 10 minutes of being connected to an agent, my system was running so smoothly I could swear it purrs now!  On top of that, the agent showed me how to use Sonos wiaJS to troubleshoot if the problem returns.  Sonos Customer Care is amazing!
+  > Sonos wiaJS IS AWESOME!  I was having all kinds of audio cutouts while trying to play Spotify in my house in New York City, so I called Sonos Customer Care.
+  > Within 10 minutes of being connected to an agent, my system was running so smoothly I could swear it purrs now!
+  > On top of that, the agent showed me how to use Sonos wiaJS to troubleshoot if the problem returns.  Sonos Customer Care is amazing!
 
 ## Closing and Call to Action ##
   > What are you waiting for?? Deploy the server and start wowing end users already!
