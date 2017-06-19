@@ -1,2 +1,20 @@
-<h1>Zone Player</h1>
-<h3>Name: {{$ctrl.baseUrl}}</h3>
+<h4>Zone Player @ <a href={{$ctrl.zpService.statusUrl}}>{{$ctrl.zpService.statusUrl}}</a></h4>
+<p>Name: {{$ctrl.zpService.zpName}}</p>
+<p>PhyErrs since last read: {{$ctrl.zpService.phyErrSinceLastRead}} || time of last read: {{$ctrl.zpService.timeOfLastRead}}</p>
+
+
+<!-- https://codepen.io/zavoloklom/pen/IGkDz -->
+<h1>Historic PhyErr data</h1>
+<table id="table" class="table table-bordered table-striped table-hover table-mc-light-blue">
+  <thead>
+    <tr>
+      <td>TimeStamp of sample</td>
+      <td>PhyErrs since last read</td>
+    </tr>
+  </thead>
+  <tr ng-repeat="dataPoint in $ctrl.zpService.phyData">
+    <td>{{dataPoint[1]}}</td>
+    <td>{{dataPoint[0]}}</td>
+  </tr>
+
+</table>
