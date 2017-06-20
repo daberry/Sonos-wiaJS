@@ -31,14 +31,6 @@ angular.module('wiaJS')
           console.log("!!! lineChart callback !!!");
         }
       },
-      caption: {
-        enable: true,
-        html: '<b>' + this.zpObject.name + ' | PhyErr:(' + this.zpObject.phyErrSinceLastRead + ')</b>',
-        css: {
-          'text-align': 'center',
-          'margin': '10px 13px 0px 7px'
-        }
-      }
     };
     //this.options = $scope.options;
     this.data = [{

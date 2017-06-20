@@ -41,7 +41,7 @@ angular.module('wiaJS')
             url: curUrl,
             startTime: 0,
             timeOfLastRead: 0,
-            phyErrSincelastRead: 0,
+            phyErrSinceLastRead: 0,
             phyData: []
           };
           this.otherZPs.ips.push(curIp);
