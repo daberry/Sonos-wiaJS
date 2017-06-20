@@ -1,17 +1,6 @@
-<h4>Zone Player {{$ctrl.zpService.zpName}} @ <a href={{$ctrl.zpService.statusUrl}}>{{$ctrl.zpService.statusUrl}}</a></h4>
-PhyErrs since last read: {{$ctrl.zpService.phyErrSinceLastRead}} || time of last read: {{$ctrl.zpService.timeOfLastRead}}
-<div><nvd3 options="$ctrl.options"
-            data="$ctrl.data"
-           config="$ctrl.config"
-           class="with-3d-shadow with-transitions"></nvd3></div>
-
 <zone-player ng-repeat="ip in $ctrl.zpService.otherZPs.ips"
              zp-object="$ctrl.zpService.otherZPs[ip]"
-             zp-name="$ctrl.zpService.zpName"
-             status-url="$ctrl.zpService.statusUrl"
-             cur-time="$ctrl.zpService.curTime"
-             start-time="$ctrl.zpService.startTime"
-             zp-service="$ctrl.zpService"/>
+/>
 
 <!-- https://codepen.io/zavoloklom/pen/IGkDz -->
 <!--

@@ -19,7 +19,7 @@ angular.module('wiaJS')
           this.url = 'http://192.168.1.8:1400/status/proc/ath_rincon/status';
         }
       }
-      this.fetchPhyErr.bind(this, function() {});
+      //this.fetchPhyErr.bind(this, function() {});
       $http.get(this.statusUrl + '/zp')
         .then((resultPrev) => {
           this.zpName = resultPrev.data.ZPSupportInfo.ZPInfo.ZoneName;
@@ -35,10 +35,18 @@ angular.module('wiaJS')
         result.ZonePlayers.ZonePlayer.map((cur) => {
           var curIp = cur._location.match(/\/\/(.+):1400/)[1];
           var curUrl = 'http://' + curIp + ':1400/status/proc/ath_rincon/status'
-          this.otherZPs[curIp] = {ip: curIp,
-                                  name: cur.__text,
-                                  url: curUrl};
+          this.otherZPs[curIp] = {
+            ip: curIp,
+            name: cur.__text,
+            url: curUrl,
+            startTime: 0,
+            timeOfLastRead: 0,
+            phyErrSincelastRead: 0,
+            phyData: []
+          };
           this.otherZPs.ips.push(curIp);
+          this.fetchPhyErr.call(this.otherZPs[curIp], function () {})
+          this.otherZPs[curIp].phyErrGrabber = setInterval(this.fetchPhyErr.bind(this.otherZPs[curIp], function() {}), 2000);
         });
       });
     };
@@ -51,7 +59,8 @@ angular.module('wiaJS')
           console.error(data);
         });
     }
-    this.fetchPhyErr = (cb) => {
+    //this.fetchPhyErr = (cb) => {
+    this.fetchPhyErr = function(cb) {
       $http.get(this.url)
         .then((result) => {
           var splitData = result.data.ZPSupportInfo.File.__text.split('\n');

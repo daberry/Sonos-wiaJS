@@ -1,12 +1,5 @@
 angular.module('wiaJS')
   .controller('zpCtrl', function() {
-    if (this.zpObject.ip !== '192.168.1.8') {
-      //setInterval(this.zpService.fetchPhyErr.bind(this.ZPObject, function () {}), 2000);
-    } else {
-      console.log('zp object ip is 192.168.1.8');
-    }
-
-
     this.options = {
       chart: {
         type: 'lineChart',
@@ -25,31 +18,14 @@ angular.module('wiaJS')
         },
         useInteractiveGuideline: false,
         dispatch: {},
-        /*
-         dispatch: {
-         stateChange: function (e) {
-         console.log("stateChange");
-         },
-         changeState: function (e) {
-         console.log("changeState");
-         },
-         tooltipShow: function (e) {
-         console.log("tooltipShow");
-         },
-         tooltipHide: function (e) {
-         console.log("tooltipHide");
-         }
-
-         },
-         */
         xAxis: {
           axisLabel: 'Time (ms)',
         },
         yAxis: {
-          axisLabel: 'Voltage (v)',
+          axisLabel: 'PhyErr',
           axisLabelDistance: 100,
         },
-        yDomain: [0,10000],
+        yDomain: [0,2000],
         xDomain: [0,60000],
         callback: function (chart) {
           console.log("!!! lineChart callback !!!");
@@ -57,7 +33,7 @@ angular.module('wiaJS')
       },
       caption: {
         enable: true,
-        html: '<b>Figure 1.</b>',
+        html: '<b>' + this.zpObject.name + ' | PhyErr:(' + this.zpObject.phyErrSinceLastRead + ')</b>',
         css: {
           'text-align': 'center',
           'margin': '10px 13px 0px 7px'
@@ -66,8 +42,8 @@ angular.module('wiaJS')
     };
     //this.options = $scope.options;
     this.data = [{
-      key: this.zpService.zpName,
-      values: this.zpService.phyData
+      key: this.zpObject.zpName,
+      values: this.zpObject.phyData
     }];
     //this.data = $scope.data;
     this.config = {
@@ -84,12 +60,13 @@ angular.module('wiaJS')
   })
   .component('zonePlayer', {
     bindings: {
-      zpObject: '=',
+      zpObject: '<'/*,
       zpName: '<',
       phyData: '<',
       curTime: '<',
       startTime: '<',
-      zpService: '='
+      zpService: '<'
+      */
     },
     controller: 'zpCtrl',
     templateUrl: 'views/zonePlayer.html'

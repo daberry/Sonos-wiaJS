@@ -1,3 +1,12 @@
-<h4>Zone Player {{$ctrl.zpObject.name}} @ {{$ctrl.zpObject.ip}}</h4>
-PhyErrs since last read: {{}} || time of last read: {{}}
- || bla
+<!--
+<h4>
+  Zone Player {{$ctrl.zpObject.name}} @ {{$ctrl.zpObject.ip}}
+  PhyErrs since last read: {{$ctrl.zpObject.phyErrSinceLastRead}}
+  || time of last read: {{$ctrl.zpObject.timeOfLastRead}}
+</h4>
+-->
+
+<div><nvd3 options="$ctrl.options"
+           data="$ctrl.data"
+           config="$ctrl.config"
+           class="with-3d-shadow with-transitions"></nvd3></div>
