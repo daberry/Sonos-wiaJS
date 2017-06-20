@@ -1,9 +1,11 @@
 angular.module('wiaJS')
-  .factory('zonePlayer', function($http, $window) {
+  .factory('Sonos', function($http, $window) {
     this.x2js = new X2JS();
     this.phyData = [];
     this.otherZPs = [];
     this.curTime = 0;
+    this.startTime = 0;
+    this.zpName = '';
     this.initZonePlayer = (useLocal, callback, ipString, useInterval) => {
       this.url = '';
       //url initialization logic
@@ -14,7 +16,6 @@ angular.module('wiaJS')
           this.statusUrl = 'http://' + ipString + ':1400/status';
           this.url = this.statusUrl + '/proc/ath_rincon/status'
         } else {
-          // console.log('falsy IPString');
           this.url = 'http://192.168.1.8:1400/status/proc/ath_rincon/status';
         }
       }
@@ -53,9 +54,12 @@ angular.module('wiaJS')
           var filtered = splitData.filter(function (cur) {
             return cur.includes('PHY errors since');
           }).join('');
-          this.phyErrSinceLastRead = filtered.match(/[0-9]/g).join('');
+          this.phyErrSinceLastRead = Math.round(Number.parseInt(filtered.match(/[0-9]/g).join('')) / 4);
+          if (this.startTime === 0) {
+            this.startTime = Date.parse(new Date());
+          }
           this.timeOfLastRead = Date.parse(new Date());
-          this.phyData.push({value: this.phyErrSinceLastRead, label: this.timeOfLastRead});
+          this.phyData.push({value: this.phyErrSinceLastRead, label: (this.timeOfLastRead - this.startTime)});
           if (cb) {
             cb();
           }

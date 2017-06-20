@@ -1,13 +1,13 @@
 angular.module("wiaJS")
-  .controller('AppCtrl', function($scope, zonePlayer) {
-    this.zpService = zonePlayer;
-    this.zpService2 = zonePlayer;
-    console.log(this.zpService2);
+  .controller('AppCtrl', function(Sonos) {
+    this.zpService = Sonos;
     this.zpService.initZonePlayer(false, () => {}, '192.168.1.8', true);
-    $scope.options = {
+
+
+    this.options = {
       chart: {
         type: 'lineChart',
-        height: 450,
+        height: 200,
         margin: {
           top: 20,
           right: 20,
@@ -20,9 +20,11 @@ angular.module("wiaJS")
         y: function (d) {
           return d.value;
         },
-        useInteractiveGuideline: true,
+        useInteractiveGuideline: false,
+        dispatch: {},
+        /*
         dispatch: {
-          stateChange: function (e) {
+                   stateChange: function (e) {
             console.log("stateChange");
           },
           changeState: function (e) {
@@ -34,7 +36,9 @@ angular.module("wiaJS")
           tooltipHide: function (e) {
             console.log("tooltipHide");
           }
+
         },
+         */
         xAxis: {
           axisLabel: 'Time (ms)',
         },
@@ -42,38 +46,28 @@ angular.module("wiaJS")
           axisLabel: 'Voltage (v)',
           axisLabelDistance: 100,
         },
-        yDomain: [0,4000],
+        yDomain: [0,10000],
+        xDomain: [0,60000],
         callback: function (chart) {
           console.log("!!! lineChart callback !!!");
         }
       },
-      title: {
+      caption: {
         enable: true,
-        text: 'Title for Line Chart'
-      },
-      subtitle: {
-        enable: true,
-        text: 'Subtitle for simple line chart. Lorem ipsum dolor sit amet, at eam blandit sadipscing, vim adhuc sanctus disputando ex, cu usu affert alienum urbanitas.',
+        html: '<b>Figure 1.</b>',
         css: {
           'text-align': 'center',
           'margin': '10px 13px 0px 7px'
         }
-      },
-      caption: {
-        enable: true,
-        html: '<b>Figure 1.</b> Lorem ipsum dolor sit amet, at eam blandit sadipscing, <span style="text-decoration: underline;">vim adhuc sanctus disputando ex</span>, cu usu affert alienum urbanitas. <i>Cum in purto erat, mea ne nominavi persecuti reformidans.</i> Docendi blandit abhorreant ea has, minim tantas alterum pro eu. <span style="color: darkred;">Exerci graeci ad vix, elit tacimates ea duo</span>. Id mel eruditi fuisset. Stet vidit patrioque in pro, eum ex veri verterem abhorreant, id unum oportere intellegam nec<sup>[1, <a href="https://github.com/krispo/angular-nvd3" target="_blank">2</a>, 3]</sup>.',
-        css: {
-          'text-align': 'justify',
-          'margin': '10px 13px 0px 7px'
-        }
       }
     };
-    this.options = $scope.options;
-    $scope.data = [{
-      key: "Cumulative Return",
+    //this.options = $scope.options;
+    this.data = [{
+      key: this.zpService.zpName,
       values: this.zpService.phyData
     }];
-    $scope.config = {
+    //this.data = $scope.data;
+    this.config = {
       visible: true, // default: true
       extended: false, // default: false
       disabled: false, // default: false
@@ -83,6 +77,7 @@ angular.module("wiaJS")
       deepWatchDataDepth: 2, // default: 2
       debounce: 10 // default: 10
     };
+    //this.config = $scope.config;
   })
   .component("wiaApp",{
     templateUrl: 'views/wiaJS.html',

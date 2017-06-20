@@ -1,15 +1,15 @@
 <h4>Zone Player @ <a href={{$ctrl.zpService.statusUrl}}>{{$ctrl.zpService.statusUrl}}</a></h4>
-<p>Name: {{$ctrl.zpService.zpName}}</p>
-<p>PhyErrs since last read: {{$ctrl.zpService.phyErrSinceLastRead}} || time of last read: {{$ctrl.zpService.timeOfLastRead}}</p>
+Name: {{$ctrl.zpService.zpName}} || PhyErrs since last read: {{$ctrl.zpService.phyErrSinceLastRead}} || time of last read: {{$ctrl.zpService.timeOfLastRead}}
 <p>Other ZPs: {{$ctrl.zpService.otherZPs.join(' :: ')}}</p>
-<nvd3 options="$ctrl.options"
-      data="data"
-      config="config"
-      events="events"
-      api="api"
-      on-ready="callback"></nvd3>
+<div><nvd3 options="$ctrl.options"
+            data="$ctrl.data"
+           config="$ctrl.config"
+           class="with-3d-shadow with-transitions"></nvd3></div>
+
+<zone-player zpName="$ctrl.zpService.zpName" statusUrl="$ctrl.zpService.statusUrl" curTime="$ctrl.zpService.curTime" startTime="$ctrl.zpService.startTime"></zone-player>
 
 <!-- https://codepen.io/zavoloklom/pen/IGkDz -->
+<!--
 <h1>Historic PhyErr data</h1>
 <table id="table" class="table table-bordered table-striped table-hover table-mc-light-blue">
   <thead>
@@ -24,3 +24,4 @@
   </tr>
 
 </table>
+-->
