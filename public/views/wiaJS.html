@@ -1,7 +1,7 @@
 <h4>Zone Player @ <a href={{$ctrl.zpService.statusUrl}}>{{$ctrl.zpService.statusUrl}}</a></h4>
 <p>Name: {{$ctrl.zpService.zpName}}</p>
 <p>PhyErrs since last read: {{$ctrl.zpService.phyErrSinceLastRead}} || time of last read: {{$ctrl.zpService.timeOfLastRead}}</p>
-<nvd3 options="options"
+<nvd3 options="$ctrl.options"
       data="data"
       config="config"
       events="events"

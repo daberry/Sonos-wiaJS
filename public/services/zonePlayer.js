@@ -39,7 +39,7 @@ angular.module('wiaJS')
             return cur.includes('PHY errors since');
           }).join('');
           this.phyErrSinceLastRead = filtered.match(/[0-9]/g).join('');
-          this.timeOfLastRead = new Date().toISOString();
+          this.timeOfLastRead = Date.parse(new Date());
           this.phyData.push({value: this.phyErrSinceLastRead, label: this.timeOfLastRead});
           if (cb) {
             cb();
