@@ -2,6 +2,8 @@ angular.module('wiaJS')
   .factory('zonePlayer', function($http, $window) {
     this.x2js = new X2JS();
     this.phyData = [];
+    this.otherZPs = [];
+    this.curTime = 0;
     this.initZonePlayer = (useLocal, callback, ipString, useInterval) => {
       this.url = '';
       //url initialization logic
@@ -19,7 +21,6 @@ angular.module('wiaJS')
       this.fetchPhyErr(function() {});
       $http.get(this.statusUrl + '/zp')
         .then((resultPrev) => {
-          //console.log('data from previous: ' + JSON.stringify());
           this.zpName = resultPrev.data.ZPSupportInfo.ZPInfo.ZoneName;
           if (useInterval) {
             this.phyErrGrabber = setInterval(this.fetchPhyErr, 2000);
@@ -29,8 +30,22 @@ angular.module('wiaJS')
         .catch(function (data) {
           console.error(data);
         });
+      this.grabXMLfromZP('/topology', (result) => {
+        console.log('topology fetch: ',result);
+        result.ZonePlayers.ZonePlayer.map((cur) => {
+          this.otherZPs.push(cur._location.match(/\/\/(.+):1400/)[1]);
+        });
+      });
     };
-
+    this.grabXMLfromZP = (urlSuffix, cb) => {
+      $http.get(this.statusUrl + urlSuffix)
+        .then((fetchedResult) => {
+        cb(fetchedResult.data.ZPSupportInfo);
+        })
+      .catch(function (data) {
+          console.error(data);
+        });
+    }
     this.fetchPhyErr = (cb) => {
       $http.get(this.url)
         .then((result) => {
