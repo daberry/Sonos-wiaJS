@@ -2,7 +2,7 @@ angular.module('wiaJS')
   .factory('zonePlayer', function($http, $window) {
     this.x2js = new X2JS();
     this.phyData = [];
-    this.initZonePlayer = (useLocal, callback, ipString) => {
+    this.initZonePlayer = (useLocal, callback, ipString, useInterval) => {
       this.url = '';
       //url initialization logic
       if (useLocal) {
@@ -21,7 +21,9 @@ angular.module('wiaJS')
         .then((resultPrev) => {
           //console.log('data from previous: ' + JSON.stringify());
           this.zpName = resultPrev.data.ZPSupportInfo.ZPInfo.ZoneName;
-          this.phyErrGrabber = setInterval(this.fetchPhyErr, 2000);
+          if (useInterval) {
+            this.phyErrGrabber = setInterval(this.fetchPhyErr, 2000);
+          }
           callback();
         })
         .catch(function (data) {
@@ -38,7 +40,7 @@ angular.module('wiaJS')
           }).join('');
           this.phyErrSinceLastRead = filtered.match(/[0-9]/g).join('');
           this.timeOfLastRead = new Date().toISOString();
-          this.phyData.push([this.phyErrSinceLastRead, this.timeOfLastRead]);
+          this.phyData.push({value: this.phyErrSinceLastRead, label: this.timeOfLastRead});
           if (cb) {
             cb();
           }

@@ -1,7 +1,12 @@
 <h4>Zone Player @ <a href={{$ctrl.zpService.statusUrl}}>{{$ctrl.zpService.statusUrl}}</a></h4>
 <p>Name: {{$ctrl.zpService.zpName}}</p>
 <p>PhyErrs since last read: {{$ctrl.zpService.phyErrSinceLastRead}} || time of last read: {{$ctrl.zpService.timeOfLastRead}}</p>
-
+<nvd3 options="options"
+      data="data"
+      config="config"
+      events="events"
+      api="api"
+      on-ready="callback"></nvd3>
 
 <!-- https://codepen.io/zavoloklom/pen/IGkDz -->
 <h1>Historic PhyErr data</h1>
@@ -13,8 +18,8 @@
     </tr>
   </thead>
   <tr ng-repeat="dataPoint in $ctrl.zpService.phyData">
-    <td>{{dataPoint[1]}}</td>
-    <td>{{dataPoint[0]}}</td>
+    <td>{{dataPoint.label}}</td>
+    <td>{{dataPoint.value}}</td>
   </tr>
 
 </table>
