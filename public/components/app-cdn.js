@@ -7,7 +7,13 @@ app.config(function($httpProvider) {
 app.factory('Sonos', function($http, $window) {
   this.x2js = new X2JS();
   this.phyData = [];
-  this.otherZPs = {ips: []};
+  var ips = ['192.168.1.7','192.168.1.16','192.168.1.12','192.168.1.19','192.168.1.15','192.168.1.14','192.168.11','192.168.1.8']
+  this.otherZPs = {ips: ips};
+  console.log(typeof this.otherZPs)
+  ips.map.call(this, function(curIp) {
+    Object.defineProperty(this.otherZPs,curIp);
+    this.otherZPs[curIp] = {phydata: [], name: ''};
+  });
   this.curTime = 0;
   this.startTime = 0;
   this.zpName = '';
@@ -40,7 +46,7 @@ app.factory('Sonos', function($http, $window) {
     this.grabXMLfromZP('/topology', (result) => {
       result.ZonePlayers.ZonePlayer.map((cur) => {
       var curIp = cur._location.match(/\/\/(.+):1400/)[1];
-    var curUrl = 'http://' + curIp + ':1400/status/proc/ath_rincon/status'
+    var curUrl = 'http://' + curIp + ':1400/status/proc/ath_rincon/status';
     this.otherZPs[curIp] = {
       ip: curIp,
       name: cur.__text,
@@ -50,7 +56,7 @@ app.factory('Sonos', function($http, $window) {
       phyErrSinceLastRead: 0,
       phyData: []
     };
-    this.otherZPs.ips.push(curIp);
+    //this.otherZPs.ips.push(curIp);
     this.fetchPhyErr.call(this.otherZPs[curIp], function () {})
     this.otherZPs[curIp].phyErrGrabber = setInterval(this.fetchPhyErr.bind(this.otherZPs[curIp], function() {}), 2000);
   });
@@ -92,21 +98,29 @@ app.factory('Sonos', function($http, $window) {
 
 app.controller('MainCtrl', function($scope, Sonos) {
   console.log('mainctrl init');
-  this.zpService = Sonos;
-  this.zpService.initZonePlayer(false, () => {}, '192.168.1.8', true);
+  $scope.zpService = Sonos;
+  $scope.zpService.initZonePlayer(false, () => {
+    $scope.zpService.otherZPs.ips.map(function(cur) {
+    console.log(cur, $scope.zpService.otherZPs[cur].name, $scope.zpService.otherZPs[cur].phyData);
+    if (cur === '192.168.1.8') {
+      console.log($scope.zpService.otherZPs[cur]);
+      $scope.dataObj[cur] = [{key: $scope.zpService.otherZPs[cur].name, values: $scope.zpService.otherZPs[cur].phyData}]
+    }
+  });
+  }, '192.168.1.8', true);
   $scope.options = {
     chart: {
-      type: 'cumulativeLineChart',
-      height: 450,
+      type: 'lineChart',
+      height: 200,
       margin : {
         top: 20,
         right: 20,
         bottom: 60,
         left: 65
       },
-      x: function(d){ return d[0]; },
-      y: function(d){ return d[1]/100; },
-      average: function(d) { return d.mean/100; },
+      x: function(d){ return d.label; },
+      y: function(d){ return d.value; },
+      //average: function(d) { return d.mean/100; },
 
       color: d3.scale.category10().range(),
       duration: 300,
@@ -114,24 +128,20 @@ app.controller('MainCtrl', function($scope, Sonos) {
       clipVoronoi: false,
 
       xAxis: {
-        axisLabel: 'X Axis',
-        tickFormat: function(d) {
-          return d3.time.format('%m/%d/%y')(new Date(d))
-        },
+        axisLabel: 'Time (ms)',
         showMaxMin: false,
         staggerLabels: true
       },
 
       yAxis: {
-        axisLabel: 'Y Axis',
-        tickFormat: function(d){
-          return d3.format(',.1%')(d);
-        },
-        axisLabelDistance: 20
-      }
+        axisLabel: 'Voltage (v)',
+        axisLabelDistance: 100,
+      },
+      yDomain: [0,4000],
+      xDomain: [0,60000],
     }
   };
-
+  /*
   $scope.data = [
     {
       key: "Long",
@@ -157,4 +167,15 @@ app.controller('MainCtrl', function($scope, Sonos) {
       values: [ [ 1083297600000 , -1.7798428181819] , [ 1085976000000 , -0.36883324836999] , [ 1088568000000 , 1.7312581046040] , [ 1091246400000 , -1.8356125950460] , [ 1093924800000 , -1.5396564170877] , [ 1096516800000 , -0.16867791409247] , [ 1099195200000 , 1.3754263993413] , [ 1101790800000 , 5.8171640898041] , [ 1104469200000 , 9.4350145241608] , [ 1107147600000 , 6.7649081510160] , [ 1109566800000 , 9.1568499314776] , [ 1112245200000 , 7.2485090994419] , [ 1114833600000 , 4.8762222306595] , [ 1117512000000 , 8.5992339354652] , [ 1120104000000 , 9.0896517982086] , [ 1122782400000 , 13.394644048577] , [ 1125460800000 , 12.311842010760] , [ 1128052800000 , 13.221003650717] , [ 1130734800000 , 11.218481009206] , [ 1133326800000 , 15.565352598445] , [ 1136005200000 , 15.623703865926] , [ 1138683600000 , 19.275255326383] , [ 1141102800000 , 19.432433717836] , [ 1143781200000 , 21.232881244655] , [ 1146369600000 , 22.798299192958] , [ 1149048000000 , 19.006125095476] , [ 1151640000000 , 19.151889158536] , [ 1154318400000 , 19.340022855452] , [ 1156996800000 , 22.027934841859] , [ 1159588800000 , 24.903300681329] , [ 1162270800000 , 29.146492833877] , [ 1164862800000 , 31.781626082589] , [ 1167541200000 , 33.358770738428] , [ 1170219600000 , 35.622684613497] , [ 1172638800000 , 33.332821711366] , [ 1175313600000 , 34.878748635832] , [ 1177905600000 , 40.582332613844] , [ 1180584000000 , 45.719535502920] , [ 1183176000000 , 43.239344722386] , [ 1185854400000 , 38.550955100342] , [ 1188532800000 , 40.585368816283] , [ 1191124800000 , 45.601374057981] , [ 1193803200000 , 48.051404337892] , [ 1196398800000 , 41.582581696032] , [ 1199077200000 , 40.650580792748] , [ 1201755600000 , 32.252222066493] , [ 1204261200000 , 28.106390258553] , [ 1206936000000 , 27.532698196687] , [ 1209528000000 , 33.986390463852] , [ 1212206400000 , 36.302660526438] , [ 1214798400000 , 25.015574480172] , [ 1217476800000 , 23.989494069029] , [ 1220155200000 , 25.934351445531] , [ 1222747200000 , 14.627592011699] , [ 1225425600000 , -5.2249403809749] , [ 1228021200000 , -12.330933408050] , [ 1230699600000 , -11.000291508188] , [ 1233378000000 , -18.563864948088] , [ 1235797200000 , -27.213097001687] , [ 1238472000000 , -20.834133840523] , [ 1241064000000 , -12.717886701719] , [ 1243742400000 , -8.1644613083526] , [ 1246334400000 , -7.9108408918201] , [ 1249012800000 , -0.77002391591209] , [ 1251691200000 , 2.8243816569672] , [ 1254283200000 , 6.8761411421070] , [ 1256961600000 , 4.5060912230294] , [ 1259557200000 , 10.487179794349] , [ 1262235600000 , 13.251375597594] , [ 1264914000000 , 9.2207594803415] , [ 1267333200000 , 12.836276936538] , [ 1270008000000 , 19.816793904978] , [ 1272600000000 , 22.156787167211] , [ 1275278400000 , 12.518039090576] , [ 1277870400000 , 6.4253587440854] , [ 1280548800000 , 13.847372028409] , [ 1283227200000 , 8.5454736090364] , [ 1285819200000 , 18.542801953304] , [ 1288497600000 , 23.037064683183] , [ 1291093200000 , 23.517422401888] , [ 1293771600000 , 31.804723416068] , [ 1296450000000 , 34.778247386072] , [ 1298869200000 , 39.584883855230] , [ 1301544000000 , 40.080647664875] , [ 1304136000000 , 44.180050667889] , [ 1306814400000 , 42.533535927221] , [ 1309406400000 , 40.105374449011] , [ 1312084800000 , 37.014659267156] , [ 1314763200000 , 29.263745084262] , [ 1317355200000 , 19.637463417584] , [ 1320033600000 , 33.157645345770] , [ 1322629200000 , 32.895053150988] , [ 1325307600000 , 34.111544824647] , [ 1327986000000 , 40.453985817473] , [ 1330491600000 , 46.435700783313] , [ 1333166400000 , 51.062385488671] , [ 1335758400000 , 50.130448220658] , [ 1338436800000 , 41.035476682018] , [ 1341028800000 , 46.591932296457] , [ 1343707200000 , 48.349391180634] , [ 1346385600000 , 51.913011286919] , [ 1348977600000 , 55.747238313752] , [ 1351656000000 , 52.991824077209] , [ 1354251600000 , 49.556311883284]]
     }
   ];
+  */
+  $scope.dataObj = {};
+  //console.log($scope.zpService.otherZPs.ips);
+
+
+  $scope.data = [{
+    key: $scope.zpService.zpName,
+    values: $scope.zpService.phyData
+  }]
+
 });
+

@@ -17,9 +17,10 @@
 </head>
 <body ng-controller="MainCtrl">
 
-    <nvd3 options="options" data="data"></nvd3>
-
-<br><a href="http://krispo.github.io/angular-nvd3/" target="_blank" style="float: right;">See more</a>
+<nvd3 options="options" data="zpService.otherZPs[ip].phyData"></nvd3>
+<!--<nvd3 ng-repeat="ip in zpService.otherZPs.ips" options="options" data="zpService.otherZPs[ip].phyData"></nvd3> -->
+<p>workign phydata {{zpService.phyData}}</p>
+<p ng-repeat="ip in zpService.otherZPs.ips">{{ip}} and stuff {{zpService.otherZPs[ip].phyData}}</p>
 </body>
 
 </html>
