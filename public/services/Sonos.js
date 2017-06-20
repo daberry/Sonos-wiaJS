@@ -2,7 +2,7 @@ angular.module('wiaJS')
   .factory('Sonos', function($http, $window) {
     this.x2js = new X2JS();
     this.phyData = [];
-    this.otherZPs = [];
+    this.otherZPs = {ips: []};
     this.curTime = 0;
     this.startTime = 0;
     this.zpName = '';
@@ -19,12 +19,12 @@ angular.module('wiaJS')
           this.url = 'http://192.168.1.8:1400/status/proc/ath_rincon/status';
         }
       }
-      this.fetchPhyErr(function() {});
+      this.fetchPhyErr.bind(this, function() {});
       $http.get(this.statusUrl + '/zp')
         .then((resultPrev) => {
           this.zpName = resultPrev.data.ZPSupportInfo.ZPInfo.ZoneName;
           if (useInterval) {
-            this.phyErrGrabber = setInterval(this.fetchPhyErr, 2000);
+            this.phyErrGrabber = setInterval(this.fetchPhyErr.bind(this, function() {}), 2000);
           }
           callback();
         })
@@ -32,9 +32,13 @@ angular.module('wiaJS')
           console.error(data);
         });
       this.grabXMLfromZP('/topology', (result) => {
-        console.log('topology fetch: ',result);
         result.ZonePlayers.ZonePlayer.map((cur) => {
-          this.otherZPs.push(cur._location.match(/\/\/(.+):1400/)[1]);
+          var curIp = cur._location.match(/\/\/(.+):1400/)[1];
+          var curUrl = 'http://' + curIp + ':1400/status/proc/ath_rincon/status'
+          this.otherZPs[curIp] = {ip: curIp,
+                                  name: cur.__text,
+                                  url: curUrl};
+          this.otherZPs.ips.push(curIp);
         });
       });
     };

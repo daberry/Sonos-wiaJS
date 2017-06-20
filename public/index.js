@@ -1,6 +1,6 @@
 angular.module('wiaJS', ['xml', 'nvd3'])
   .config(function($httpProvider) {
-    console.log('start of config');
+    // console.log('start of config');
     $httpProvider.interceptors.push('xmlHttpInterceptor');
-    console.log('wiaJS loaded');
+    // console.log('wiaJS loaded');
   });

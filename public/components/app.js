@@ -3,7 +3,6 @@ angular.module("wiaJS")
     this.zpService = Sonos;
     this.zpService.initZonePlayer(false, () => {}, '192.168.1.8', true);
 
-
     this.options = {
       chart: {
         type: 'lineChart',
