@@ -1,0 +1,21 @@
+<zone-player ng-repeat="ip in $ctrl.zpService.otherZPs.ips"
+             zp-object="$ctrl.zpService.otherZPs[ip]"
+/>
+
+<!-- https://codepen.io/zavoloklom/pen/IGkDz -->
+<!--
+<h1>Historic PhyErr data</h1>
+<table id="table" class="table table-bordered table-striped table-hover table-mc-light-blue">
+  <thead>
+    <tr>
+      <td>TimeStamp of sample</td>
+      <td>PhyErrs since last read</td>
+    </tr>
+  </thead>
+  <tr ng-repeat="dataPoint in $ctrl.zpService.phyData">
+    <td>{{dataPoint.label}}</td>
+    <td>{{dataPoint.value}}</td>
+  </tr>
+
+</table>
+-->

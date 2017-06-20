@@ -16,7 +16,7 @@ angular.module('wiaJS')
         y: function (d) {
           return d.value;
         },
-        useInteractiveGuideline: false,
+        useInteractiveGuideline: true,
         dispatch: {},
         xAxis: {
           axisLabel: 'Time (ms)',
